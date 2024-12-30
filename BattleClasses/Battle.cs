@@ -10,8 +10,6 @@ namespace BattleClasses
     public class Battle
     {
         private Database _database;
-        private Warteschlange _warteschlange;
-        private List<Warteschlange> waitinglist;
 
         private static ConcurrentQueue<User> playerQueue = new ConcurrentQueue<User>();
         private static readonly object battlelock = new object();
@@ -19,8 +17,6 @@ namespace BattleClasses
         public Battle()
         {
             _database = new Database();
-            _warteschlange = new Warteschlange();
-            waitinglist = new List<Warteschlange>();
         }
 
         public static int calcNormalBattle(Cards user1Card, Cards user2Card)

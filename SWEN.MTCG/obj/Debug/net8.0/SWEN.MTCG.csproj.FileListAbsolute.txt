@@ -33,3 +33,8 @@ F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\Npgsql.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\DatabaseClassses.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\DatabaseClassses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\Castle.Core.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\NSubstitute.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll

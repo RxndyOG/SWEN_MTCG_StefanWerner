@@ -74,21 +74,6 @@ namespace TCPserverClasses
                     client.Close();
                 });
             }
-            /*
-           while (true)
-           {
-
-               TcpClient client = _listener.AcceptTcpClient();
-               NetworkStream stream = client.GetStream();
-               var urlMethode = _routes.CalcRoutes(stream);
-
-               _routes.HandleRouting();
-
-               _routes.HandleRequest(urlMethode.Item3, urlMethode.Item1, urlMethode.Item2, urlMethode.Item4, stream);
-
-               client.Close();
-           }
-            */
         }
 
         public int HandleBattleList(string Auth, NetworkStream stream)

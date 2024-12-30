@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "2zeZFZ7H0/o=",
+  "dgSpecHash": "28+nlsSQawQ=",
   "success": true,
   "projectFilePath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\BattleClasses\\BattleClasses.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Stefan\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\Stefan\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\Stefan\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
-    "C:\\Users\\Stefan\\.nuget\\packages\\npgsql\\8.0.5\\npgsql.8.0.5.nupkg.sha512"
+    "C:\\Users\\Stefan\\.nuget\\packages\\npgsql\\8.0.5\\npgsql.8.0.5.nupkg.sha512",
+    "C:\\Users\\Stefan\\.nuget\\packages\\nsubstitute\\5.3.0\\nsubstitute.5.3.0.nupkg.sha512",
+    "C:\\Users\\Stefan\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

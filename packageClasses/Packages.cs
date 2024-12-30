@@ -36,7 +36,7 @@ namespace packageClasses
             return (null, -2);
         }
 
-        public List<Cards> getPack 
+        public virtual List<Cards> getPack 
         {
             get => cardsInPack;
         }

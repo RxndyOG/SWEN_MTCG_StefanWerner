@@ -289,12 +289,11 @@ namespace UserClasses
             user.pwd = pwd;
             user.username = username;
             user.SetGetId = ID;
-            //Console.WriteLine("User Added");
 
             return user;
         }
 
-        public static bool VerifyPassword(string password, string storedHash)
+        public virtual bool VerifyPassword(string password, string storedHash)
         {
             byte[] hashBytes = Convert.FromBase64String(storedHash);
 

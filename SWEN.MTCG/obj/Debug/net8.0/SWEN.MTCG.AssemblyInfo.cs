@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SWEN.MTCG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5780844235c4bba1102ab939ed3db9081d1d1d5a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c85be1cf2f5171ef072d0a31c0e156ff3ed3eba")]
 [assembly: System.Reflection.AssemblyProductAttribute("SWEN.MTCG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SWEN.MTCG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

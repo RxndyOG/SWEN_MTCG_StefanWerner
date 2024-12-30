@@ -122,7 +122,7 @@ namespace CardsClasses
             return;
         }
 
-        public void exportCardDetails()
+        public virtual void exportCardDetails()
         {
             parseCardType(SetGetName);
             parseName(SetGetName);

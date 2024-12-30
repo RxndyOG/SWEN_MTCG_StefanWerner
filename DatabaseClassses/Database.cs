@@ -10,11 +10,8 @@ namespace DatabaseClassses
     public class Database
     {
 
-        private Warteschlange _warteschlange;
-
         public Database()
         {
-            _warteschlange = new Warteschlange();
             string connectionString = $"Host={host};Username={username};Password={password};Database={database};Port=5432";
             connection = new NpgsqlConnection(connectionString);
         }
