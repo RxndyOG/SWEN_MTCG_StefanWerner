@@ -226,26 +226,64 @@ namespace DatabaseClassses
             return userCards;
         }
 
-        public void saveDeck(User user)
+        public bool testForDeck(User user)
         {
-
             OpenConnection();
 
-            string query = "INSERT INTO deck (username, cardid1, cardid2, cardid3, cardid4) VALUES (@username, @cardid1, @cardid2, @cardid3, @cardid4);";
+            string query = "SELECT COUNT(*) FROM deck WHERE \"username\" = @username";
 
             using (var cmd = new NpgsqlCommand(query, connection))
             {
+
                 cmd.Parameters.AddWithValue("username", user.SetGetUsername);
-                cmd.Parameters.AddWithValue("cardid1", user.SetGetCardsDeck[0].SetGetID);
-                cmd.Parameters.AddWithValue("cardid2", user.SetGetCardsDeck[1].SetGetID);
-                cmd.Parameters.AddWithValue("cardid3", user.SetGetCardsDeck[2].SetGetID);
-                cmd.Parameters.AddWithValue("cardid4", user.SetGetCardsDeck[3].SetGetID);
-                int rowsAffected = cmd.ExecuteNonQuery();
-
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                CloseConnection();
+                return count > 0; // Gibt true zurück, wenn der Benutzer existiert
             }
+        }
 
-            CloseConnection();
+        public void saveDeck(User user, bool deckExists)
+        {
+            if (deckExists)
+            {
+                OpenConnection();
 
+                string query = "UPDATE deck SET cardid1 = @cardid1, cardid2 = @cardid2, cardid3 = @cardid3, cardid4 = @cardid4 WHERE \"username\" = @username;";
+
+                using (var cmd = new NpgsqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("username", user.SetGetUsername);
+                    cmd.Parameters.AddWithValue("cardid1", user.SetGetCardsDeck[0].SetGetID);
+                    cmd.Parameters.AddWithValue("cardid2", user.SetGetCardsDeck[1].SetGetID);
+                    cmd.Parameters.AddWithValue("cardid3", user.SetGetCardsDeck[2].SetGetID);
+                    cmd.Parameters.AddWithValue("cardid4", user.SetGetCardsDeck[3].SetGetID);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                }
+
+                CloseConnection();
+                return;
+            }
+            else
+            {
+                OpenConnection();
+
+                string query = "INSERT INTO deck (username, cardid1, cardid2, cardid3, cardid4) VALUES (@username, @cardid1, @cardid2, @cardid3, @cardid4);";
+
+                using (var cmd = new NpgsqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("username", user.SetGetUsername);
+                    cmd.Parameters.AddWithValue("cardid1", user.SetGetCardsDeck[0].SetGetID);
+                    cmd.Parameters.AddWithValue("cardid2", user.SetGetCardsDeck[1].SetGetID);
+                    cmd.Parameters.AddWithValue("cardid3", user.SetGetCardsDeck[2].SetGetID);
+                    cmd.Parameters.AddWithValue("cardid4", user.SetGetCardsDeck[3].SetGetID);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                }
+
+                CloseConnection();
+                return;
+            }
         }
 
         public void insertIntoDatabase(string user, string pwd)
@@ -272,121 +310,6 @@ namespace DatabaseClassses
             }
 
             Console.WriteLine("User Created");
-
-            CloseConnection();
-        }
-
-        public List<Warteschlange> GetBattleQueue(string username)
-        {   /*
-            List<Warteschlange> battleQueue = new List<Warteschlange>();
-
-            OpenConnection();
-
-            bool isWrong = false;
-
-            string query = "SELECT user1name FROM battlequeue FETCH FIRST 1 ROW ONLY";
-
-            using (var command = new NpgsqlCommand(query, connection))
-            {
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read()) // Prüfen, ob mindestens eine Zeile vorhanden ist
-                    {
-                        string user1name = reader.GetString(reader.GetOrdinal("user1name"));
-                        Console.WriteLine($"Erste Zeile: {user1name}");
-
-                        if(user1name == username)
-                        {
-                            isWrong = true;
-                        }
-                        else
-                        {
-                            Warteschlange wait1 = new Warteschlange();
-                            wait1.setGetUser1Name = user1name;
-                            battleQueue.Add(wait1);
-                            return battleQueue;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Die Tabelle ist leer.");
-                    }
-                }
-            }
-
-            if (isWrong)
-            {
-                query = "SELECT user1name FROM battlequeue ORDER BY some_column OFFSET 1 LIMIT 1";
-
-                using (var command = new NpgsqlCommand(query, connection))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read()) // Prüfen, ob eine Zeile gefunden wurde
-                        {
-                            string user2name = reader.GetString(reader.GetOrdinal("user1name"));
-                            Console.WriteLine($"Zweite Zeile: {user2name}");
-                            Warteschlange wait1 = new Warteschlange();
-                            wait1.setGetUser1Name = user2name;
-                            battleQueue.Add(wait1);
-                            return battleQueue;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Keine zweite Zeile gefunden.");
-                        }
-                    }
-                }
-            }
-
-            CloseConnection();
-            return battleQueue;
-            */
-
-
-            // hardcoded da es hier sonst zu problemen kommt deswegen ist der obere code auskommentiert
-            // die warteliste funktioniert einfach nicht
-
-            List<Warteschlange> battleQueue = new List<Warteschlange>();
-            Warteschlange wait1 = new Warteschlange();
-            wait1.setGetUser1Name = "Kienboeck";
-            battleQueue.Add(wait1);
-            wait1.setGetUser1Name = "Altenhofer";
-            battleQueue.Add(wait1);
-            return battleQueue;
-        }
-
-        public void AddToBattleQueue(string username)
-        {
-
-            OpenConnection();
-
-            string query = "INSERT INTO battlequeue (user1name) VALUES (@user);";
-
-            using (var cmd = new NpgsqlCommand(query, connection))
-            {
-                cmd.Parameters.AddWithValue("user", username);
-
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-            }
-
-            Console.WriteLine("inserted " + username);
-
-            CloseConnection();
-        }
-
-
-        public void RemoveFromBattleQueue(Warteschlange entry)
-        {
-            OpenConnection();
-
-            string query = "DELETE FROM BattleQueue WHERE Id = @id;";
-            using (var cmd = new NpgsqlCommand(query, connection))
-            {
-                cmd.Parameters.AddWithValue("id", entry.setGetWarteID);
-                cmd.ExecuteNonQuery();
-            }
 
             CloseConnection();
         }
@@ -527,8 +450,6 @@ namespace DatabaseClassses
                 CloseConnection();
             }
         }
-
-
 
         public void updateUserValues(User user, int id, string olduser)
         {

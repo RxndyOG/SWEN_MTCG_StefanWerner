@@ -273,7 +273,7 @@ namespace TCPserverClasses
                     case 0:
                         lock (padlock)
                         {
-                            _database.saveDeck(UserAuthentic.Item1);
+                            _database.saveDeck(UserAuthentic.Item1, _database.testForDeck(UserAuthentic.Item1));
                         }
                         SendResponse(stream, OK, "Cards added to Deck");
                         return 0;
@@ -364,9 +364,18 @@ namespace TCPserverClasses
         //erstellt neuen User
         public int HandleUser(List<Dictionary<string, object>> receive, NetworkStream stream)
         {
+            string testToken = receive[0]["Username"].ToString() + "-mtcgToken";
+            if (users.FirstOrDefault(j => j != null && j.SetGetToken == testToken) != null)
+            {
+                Console.WriteLine("User Already Exists");
+                SendResponse(stream, NotFound, "User already exists");
+                return 1;
+
+            }
 
             if (users.FirstOrDefault(j => j != null && j.SetGetUsername == receive[0]["Username"].ToString()) == null)      //testet ob die erste stelle der liste der username ist und schaut ob er in der liste users exisitert
             {
+
                 users.Add(new User().createUser(Authent.HashPassword(receive[0]["Password"].ToString()), receive[0]["Username"].ToString(), users.Count()));
                 lock (padlock)
                 {
@@ -379,7 +388,6 @@ namespace TCPserverClasses
             Console.WriteLine("User Already Exists");
             SendResponse(stream, NotFound, "User already exists");
             return 1;
-
 
         }
 

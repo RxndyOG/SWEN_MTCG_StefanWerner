@@ -23,9 +23,6 @@ namespace BattleClasses
             waitinglist = new List<Warteschlange>();
         }
 
-        
-
-
         public static int calcNormalBattle(Cards user1Card, Cards user2Card)
         {
             float damageUser1Card = user1Card.SetGetDamage;
@@ -382,7 +379,6 @@ namespace BattleClasses
             }
         }
 
-
         public (User, User) CalculateBattleList(User user, List<User> users)
         {
 
@@ -391,46 +387,7 @@ namespace BattleClasses
             return CheckQueue();
            // return (null,null);
         }
-        /*
-
-        public (User, User) calculateBattleList(User user)
-        {
-            foreach (var entry in WaitingListBattle)
-            {
-                if (entry.Key.SetGetUsername == user.SetGetUsername || entry.Value?.SetGetUsername == user.SetGetUsername)
-                {
-                    Console.WriteLine($"{user.SetGetUsername} ist bereits in der Warteliste.");
-                    return (null, null);
-                }
-            }
-
-            if (WaitingListBattle.Count == 0)
-            {
-                WaitingListBattle.Add(user, null);
-                Console.WriteLine($"{user.SetGetUsername} wurde der Warteliste hinzugefügt.");
-            }
-            else
-            {
-                foreach (var entry in WaitingListBattle)
-                {
-                    if (entry.Value == null)
-                    {
-                        WaitingListBattle[entry.Key] = user;
-                        Console.WriteLine($"Battle zwischen {entry.Key.SetGetUsername} und {user.SetGetUsername}");
-
-                        var usersNew = new Battle().StartBattle(entry.Key, user);
-
-                        WaitingListBattle.Remove(entry.Key);
-                        return usersNew;
-                    }
-                }
-            }
-
-            return (null, null);
-        }
-
-        */
-
+        
         public void printLeaderboard(List<User> users)
         {
             IEnumerable<User> query = users.OrderByDescending(t => t.SetGetElo);
