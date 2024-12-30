@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "packageClasses/1.0.0": {
+        "dependencies": {
+          "CardsClasses": "1.0.0"
+        },
+        "runtime": {
+          "packageClasses.dll": {}
+        }
+      },
+      "CardsClasses/1.0.0": {
+        "runtime": {
+          "CardsClasses.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "packageClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CardsClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

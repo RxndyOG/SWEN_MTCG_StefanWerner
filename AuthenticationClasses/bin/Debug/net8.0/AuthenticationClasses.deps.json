@@ -1,0 +1,71 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "AuthenticationClasses/1.0.0": {
+        "dependencies": {
+          "UserClasses": "1.0.0"
+        },
+        "runtime": {
+          "AuthenticationClasses.dll": {}
+        }
+      },
+      "CardsClasses/1.0.0": {
+        "runtime": {
+          "CardsClasses.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "packageClasses/1.0.0": {
+        "dependencies": {
+          "CardsClasses": "1.0.0"
+        },
+        "runtime": {
+          "packageClasses.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "UserClasses/1.0.0": {
+        "dependencies": {
+          "packageClasses": "1.0.0"
+        },
+        "runtime": {
+          "UserClasses.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AuthenticationClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CardsClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "packageClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UserClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

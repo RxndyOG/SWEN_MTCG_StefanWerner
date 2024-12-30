@@ -1,0 +1,16 @@
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\bin\Debug\net8.0\packageClasses.deps.json
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\bin\Debug\net8.0\packageClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\bin\Debug\net8.0\packageClasses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageClasses.GeneratedMSBuildEditorConfig.editorconfig
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageClasses.AssemblyInfoInputs.cache
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageClasses.AssemblyInfo.cs
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageClasses.csproj.CoreCompileInputs.cache
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\refint\packageClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageClasses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\ref\packageClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageClasses.csproj.AssemblyReference.cache
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\bin\Debug\net8.0\CardsClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\bin\Debug\net8.0\CardsClasses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageC.A5C92833.Up2Date
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\packageClasses\obj\Debug\net8.0\packageClasses.sourcelink.json

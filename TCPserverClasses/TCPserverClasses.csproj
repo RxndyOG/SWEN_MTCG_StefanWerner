@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AuthenticationClasses\AuthenticationClasses.csproj" />
+    <ProjectReference Include="..\BattleClasses\BattleClasses.csproj" />
+    <ProjectReference Include="..\DatabaseClassses\DatabaseClassses.csproj" />
+    <ProjectReference Include="..\packageClasses\packageClasses.csproj" />
+    <ProjectReference Include="..\UserClasses\UserClasses.csproj" />
+  </ItemGroup>
+
+</Project>
