@@ -371,7 +371,7 @@ namespace DatabaseClassses
 
             }
 
-            Console.WriteLine("inserted "+ username);
+            Console.WriteLine("inserted " + username);
 
             CloseConnection();
         }
@@ -478,6 +478,58 @@ namespace DatabaseClassses
             CloseConnection();
         }
 
+        public void updateDecksValues(User user, int id, string olduser)
+        {
+            // Open the connection
+            OpenConnection();
+
+            try
+            {
+
+
+                // Update the deck table
+                using (var cmd3 = new NpgsqlCommand("UPDATE deck SET username = @username WHERE username = @olduser", connection))
+                {
+                    cmd3.Parameters.AddWithValue("username", user.SetGetUsername);
+                    cmd3.Parameters.AddWithValue("olduser", olduser);
+
+                    cmd3.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                // Ensure the connection is closed
+                CloseConnection();
+            }
+        }
+
+        public void updateCardsValues(User user, int id, string olduser)
+        {
+            // Open the connection
+            OpenConnection();
+
+            try
+            {
+
+                // Update the cards table
+                using (var cmd2 = new NpgsqlCommand("UPDATE cards SET \"user\" = @username WHERE \"user\" = @olduser", connection))
+                {
+                    cmd2.Parameters.AddWithValue("username", user.SetGetUsername);
+                    cmd2.Parameters.AddWithValue("olduser", olduser);
+
+                    cmd2.ExecuteNonQuery();
+                }
+
+            }
+            finally
+            {
+                // Ensure the connection is closed
+                CloseConnection();
+            }
+        }
+
+
+
         public void updateUserValues(User user, int id, string olduser)
         {
             // Open the connection
@@ -499,24 +551,6 @@ namespace DatabaseClassses
                     cmd1.Parameters.AddWithValue("olduser", olduser);
 
                     cmd1.ExecuteNonQuery();
-                }
-
-                // Update the cards table
-                using (var cmd2 = new NpgsqlCommand("UPDATE cards SET \"user\" = @username WHERE \"user\" = @olduser", connection))
-                {
-                    cmd2.Parameters.AddWithValue("username", user.SetGetUsername);
-                    cmd2.Parameters.AddWithValue("olduser", olduser);
-
-                    cmd2.ExecuteNonQuery();
-                }
-
-                // Update the deck table
-                using (var cmd3 = new NpgsqlCommand("UPDATE deck SET username = @username WHERE username = @olduser", connection))
-                {
-                    cmd3.Parameters.AddWithValue("username", user.SetGetUsername);
-                    cmd3.Parameters.AddWithValue("olduser", olduser);
-
-                    cmd3.ExecuteNonQuery();
                 }
             }
             finally

@@ -10,6 +10,9 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
+using System.Runtime.CompilerServices;
+using System;
+using System.Reflection;
 
 namespace TCPserverClasses
 {
@@ -26,7 +29,7 @@ namespace TCPserverClasses
 
         private List<User> users;
         private List<Packages> packs;
-
+        private TcpClient client;
 
         public TCPServer(int port)
         {
@@ -40,6 +43,8 @@ namespace TCPserverClasses
 
         }
 
+        private static readonly object padlock = new object();
+
         private const string OK = "200";
         private const string Created = "201";
         private const string NotFound = "404";
@@ -49,13 +54,15 @@ namespace TCPserverClasses
             _listener = new TcpListener(IPAddress.Any, _port);
             _listener.Start();
             Console.WriteLine($"Server running on port {_port}");
-
-            users = _database.GetUser();
-            users = _database.GetCards(users);
+            lock (padlock)
+            {
+                users = _database.GetUser();
+                users = _database.GetCards(users);
+            }
 
             while (true)
             {
-                TcpClient client = _listener.AcceptTcpClient();
+                client = _listener.AcceptTcpClient();
                 Task.Run(() =>
                 {
                     NetworkStream stream = client.GetStream();
@@ -67,33 +74,28 @@ namespace TCPserverClasses
                     client.Close();
                 });
             }
-             /*
-            while (true)
-            {
+            /*
+           while (true)
+           {
 
-                TcpClient client = _listener.AcceptTcpClient();
-                NetworkStream stream = client.GetStream();
-                var urlMethode = _routes.CalcRoutes(stream);
+               TcpClient client = _listener.AcceptTcpClient();
+               NetworkStream stream = client.GetStream();
+               var urlMethode = _routes.CalcRoutes(stream);
 
-                _routes.HandleRouting();
+               _routes.HandleRouting();
 
-                _routes.HandleRequest(urlMethode.Item3, urlMethode.Item1, urlMethode.Item2, urlMethode.Item4, stream);
+               _routes.HandleRequest(urlMethode.Item3, urlMethode.Item1, urlMethode.Item2, urlMethode.Item4, stream);
 
-                client.Close();
-            }
-             */
+               client.Close();
+           }
+            */
         }
 
         public int HandleBattleList(string Auth, NetworkStream stream)
         {
-
-            Console.WriteLine("Battle wird für jetzt geskipped. Es funktioniert alles in der Theory die Logik geht nur die Warteliste geht nicht. alles andere was attacken angeht geht.");
-            Console.WriteLine("Daher wird die warteliste momentan geskipped und der Battle startet automatisch ohne der Warteliste");
-
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
             if (UserAuthentic.Item2 == 0)
             {
-
                 var usersNew = _battle.CalculateBattleList(UserAuthentic.Item1, users);
 
                 if (usersNew.Item1 != null)
@@ -102,17 +104,28 @@ namespace TCPserverClasses
 
                     if (index != -1)
                         users[index] = usersNew.Item1;
-
-                    _database.updateUserValues(usersNew.Item1, index, usersNew.Item1.SetGetUsername);
+                    lock (padlock)
+                    {
+                        _database.updateUserValues(usersNew.Item1, index, usersNew.Item1.SetGetUsername);
+                        _database.updateCardsValues(usersNew.Item1, index, usersNew.Item1.SetGetUsername);
+                        _database.updateDecksValues(usersNew.Item1, index, usersNew.Item1.SetGetUsername);
+                    }
                     index = users.FindIndex(s => s.SetGetUsername == usersNew.Item2.SetGetUsername);
 
                     if (index != -1)
                         users[index] = usersNew.Item2;
 
-                    _database.updateUserValues(usersNew.Item2, index, usersNew.Item2.SetGetUsername);
+                    lock (padlock)
+                    {
+                        _database.updateUserValues(usersNew.Item2, index, usersNew.Item2.SetGetUsername);
+                        _database.updateCardsValues(usersNew.Item1, index, usersNew.Item1.SetGetUsername);
+                        _database.updateDecksValues(usersNew.Item1, index, usersNew.Item1.SetGetUsername);
+                    }
+                    SendResponse(stream, OK, "");
+                    return 0;
                 }
-                SendResponse(stream, OK, "");
-                return 0;
+                SendResponse(stream, NotFound, "Error in Battle");
+                return -1;
             }
             SendResponse(stream, NotFound, "Error in Battle");
             return -1;
@@ -120,9 +133,13 @@ namespace TCPserverClasses
 
         public int HandleTradingPost(List<Dictionary<string, object>> body, string Auth, NetworkStream stream)
         {
-            _database = new Database();
-            users = _database.GetUser();
-            users = _database.GetCards(users);
+
+            lock (padlock)
+            {
+                _database = new Database();
+                users = _database.GetUser();
+                users = _database.GetCards(users);
+            }
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
             if (UserAuthentic.Item2 == 0)
             {
@@ -136,9 +153,12 @@ namespace TCPserverClasses
 
         public int HandleTrading(string Auth, NetworkStream stream)
         {
-            _database = new Database();
-            users = _database.GetUser();
-            users = _database.GetCards(users);
+            lock (padlock)
+            {
+                _database = new Database();
+                users = _database.GetUser();
+                users = _database.GetCards(users);
+            }
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
             if (UserAuthentic.Item2 == 0)
             {
@@ -152,9 +172,12 @@ namespace TCPserverClasses
 
         public int HandleLeaderboard(NetworkStream stream)
         {
-            _database = new Database();
-            users = _database.GetUser();
-            users = _database.GetCards(users);
+            lock (padlock)
+            {
+                _database = new Database();
+                users = _database.GetUser();
+                users = _database.GetCards(users);
+            }
             new Battle().printLeaderboard(users);
             SendResponse(stream, OK, "Leaderboard");
             return 0;
@@ -162,9 +185,13 @@ namespace TCPserverClasses
 
         public int HandleStats(string Auth, NetworkStream stream)
         {
-            _database = new Database();
-            users = _database.GetUser();
-            users = _database.GetCards(users);
+            lock (padlock)
+            {
+                _database = new Database();
+                users = _database.GetUser();
+                users = _database.GetCards(users);
+            }
+
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
             if (UserAuthentic.Item2 == 0)
             {
@@ -186,18 +213,26 @@ namespace TCPserverClasses
                 {
                     if (elementBody.ContainsKey("Name"))
                     {
-                        if (_database.testForUser(elementBody["Name"].ToString()) == true)
+                        lock (padlock)
                         {
-                            Console.WriteLine("User with given Username Already Exists!");
-                            SendResponse(stream, NotFound, "User already Exists");
-                            return -1;
+                            if (_database.testForUser(elementBody["Name"].ToString()) == true)
+                            {
+                                Console.WriteLine("User with given Username Already Exists!");
+                                SendResponse(stream, NotFound, "User already Exists");
+                                return -1;
+                            }
                         }
                     }
                 }
 
                 string olduser = UserAuthentic.Item1.changeUserData(body);
-                _database.updateUserValues(UserAuthentic.Item1, UserAuthentic.Item1.SetGetId + 1, olduser);
+                lock (padlock)
+                {
+                    _database.updateUserValues(UserAuthentic.Item1, UserAuthentic.Item1.SetGetId + 1, olduser);
+                    _database.updateCardsValues(UserAuthentic.Item1, UserAuthentic.Item1.SetGetId + 1, olduser);
+                    _database.updateDecksValues(UserAuthentic.Item1, UserAuthentic.Item1.SetGetId + 1, olduser);
 
+                }
                 Console.WriteLine("User edited Profile");
                 SendResponse(stream, OK, "New user Data");
                 return 0;
@@ -236,7 +271,10 @@ namespace TCPserverClasses
                         return -1;
                         break;
                     case 0:
-                        _database.saveDeck(UserAuthentic.Item1);
+                        lock (padlock)
+                        {
+                            _database.saveDeck(UserAuthentic.Item1);
+                        }
                         SendResponse(stream, OK, "Cards added to Deck");
                         return 0;
                         break;
@@ -282,11 +320,13 @@ namespace TCPserverClasses
 
                 var packsINT = UserAuthentic.Item1.openPackage(packs);
                 packs = packsINT.Item1 as List<Packages>;
-
-                _database.updateUserValues(UserAuthentic.Item1, (UserAuthentic.Item1.SetGetId + 1), UserAuthentic.Item1.SetGetUsername);
-
-                _database.InsertUserCards(UserAuthentic.Item1, prevCount);
-
+                lock (padlock)
+                {
+                    _database.updateUserValues(UserAuthentic.Item1, (UserAuthentic.Item1.SetGetId + 1), UserAuthentic.Item1.SetGetUsername);
+                    _database.updateCardsValues(UserAuthentic.Item1, (UserAuthentic.Item1.SetGetId + 1), UserAuthentic.Item1.SetGetUsername);
+                    _database.updateDecksValues(UserAuthentic.Item1, (UserAuthentic.Item1.SetGetId + 1), UserAuthentic.Item1.SetGetUsername);
+                    _database.InsertUserCards(UserAuthentic.Item1, prevCount);
+                }
                 switch (packsINT.Item2)
                 {
                     case 0:
@@ -328,7 +368,10 @@ namespace TCPserverClasses
             if (users.FirstOrDefault(j => j != null && j.SetGetUsername == receive[0]["Username"].ToString()) == null)      //testet ob die erste stelle der liste der username ist und schaut ob er in der liste users exisitert
             {
                 users.Add(new User().createUser(Authent.HashPassword(receive[0]["Password"].ToString()), receive[0]["Username"].ToString(), users.Count()));
-                _database.insertIntoDatabase(users[users.Count()-1].SetGetUsername, users[users.Count()-1].SetGetPassword);
+                lock (padlock)
+                {
+                    _database.insertIntoDatabase(users[users.Count() - 1].SetGetUsername, users[users.Count() - 1].SetGetPassword);
+                }
                 SendResponse(stream, Created, "");
                 return 0;
             }
@@ -336,6 +379,8 @@ namespace TCPserverClasses
             Console.WriteLine("User Already Exists");
             SendResponse(stream, NotFound, "User already exists");
             return 1;
+
+
         }
 
         public int HandleSession(List<Dictionary<string, object>> receive, NetworkStream stream)
@@ -354,16 +399,22 @@ namespace TCPserverClasses
 
                 string token = userExists.loginUser(receive[0]["Username"].ToString(), receive[0]["Password"].ToString());
 
-                if (_database.testForToken(token) == true)
+                lock (padlock)
                 {
-                    Console.WriteLine("User token already exists");
-                    Console.WriteLine("Token will be recalculated!");
-                    DateTime time = DateTime.Now;
-                    token = token + time.ToString();
-                    Console.WriteLine("Current token: " + token);
+                    if (_database.testForToken(token) == true)
+                    {
+                        Console.WriteLine("User token already exists");
+                        Console.WriteLine("Token will be recalculated!");
+                        DateTime time = DateTime.Now;
+                        token = token + time.ToString();
+                        Console.WriteLine("Current token: " + token);
+                    }
+
+                    _database.updateUserValues(userExists, userExists.SetGetId + 1, userExists.SetGetUsername);
+                    _database.updateCardsValues(userExists, userExists.SetGetId + 1, userExists.SetGetUsername);
+                    _database.updateDecksValues(userExists, userExists.SetGetId + 1, userExists.SetGetUsername);
                 }
 
-                _database.updateUserValues(userExists, userExists.SetGetId + 1, userExists.SetGetUsername);
 
                 if (token == "ERR")
                 {

@@ -2,6 +2,8 @@
 using CardsClasses;
 using DatabaseClassses;
 using System.Text;
+using System.Collections.Concurrent;
+using System.Net.Sockets;
 
 namespace BattleClasses
 {
@@ -10,6 +12,9 @@ namespace BattleClasses
         private Database _database;
         private Warteschlange _warteschlange;
         private List<Warteschlange> waitinglist;
+
+        private static ConcurrentQueue<User> playerQueue = new ConcurrentQueue<User>();
+        private static readonly object battlelock = new object();
 
         public Battle()
         {
@@ -21,7 +26,7 @@ namespace BattleClasses
         
 
 
-        public int calcNormalBattle(Cards user1Card, Cards user2Card)
+        public static int calcNormalBattle(Cards user1Card, Cards user2Card)
         {
             float damageUser1Card = user1Card.SetGetDamage;
             float damageUser2Card = user2Card.SetGetDamage;
@@ -127,7 +132,7 @@ namespace BattleClasses
             }
         }
 
-        public int CalcMonsterBattle(Cards user1Card, Cards user2Card)
+        public static int CalcMonsterBattle(Cards user1Card, Cards user2Card)
         {
             float damageUser1Card = user1Card.SetGetDamage;
             float damageUser2Card = user2Card.SetGetDamage;
@@ -215,7 +220,7 @@ namespace BattleClasses
 
         }
 
-        public int BattleLogic(User user1, User user2)
+        public static int BattleLogic(User user1, User user2)
         {
             List<Cards> user1DeckTemp = user1.SetGetCardsDeck;
             List<Cards> user2DeckTemp = user2.SetGetCardsDeck;
@@ -338,7 +343,7 @@ namespace BattleClasses
             return 0;
         }
 
-        public (User, User) StartBattle(User user1, User user2)
+        public static (User, User) StartBattle(User user1, User user2)
         {
             Console.WriteLine("Battle start");
 
@@ -358,63 +363,33 @@ namespace BattleClasses
             return (user1, user2);
         }
 
+        public static (User, User) CheckQueue()
+        {
+            
+            lock (battlelock)
+            {
+                if (playerQueue.Count() >= 2)
+                {
+                     
+                    
+                    if (playerQueue.TryDequeue(out User player1) && playerQueue.TryDequeue(out User player2))
+                    {
+                        Console.WriteLine($"Kampf zwischen {player1.SetGetUsername} und {player2.SetGetUsername} wurde gestartet.");
+                        return StartBattle(player1, player2);
+                    }
+                }
+                return (null, null);
+            }
+        }
+
+
         public (User, User) CalculateBattleList(User user, List<User> users)
         {
-            //_database.AddToBattleQueue(user.SetGetUsername);
 
-
-            // Alle Benutzer aus der Warteschlange holen
-            List<Warteschlange> battleQueue = _database.GetBattleQueue(user.SetGetUsername);
-            // battlequeue wird momentan nicht benutzt weil ich die warteschlange nicht hinbekommen habe
-
-            Warteschlange firstPlayer = new Warteschlange();
-            firstPlayer.setGetUser1Name = "Altenhofer";
-            Warteschlange secondPlayer = new Warteschlange();
-            secondPlayer.setGetUser1Name = "Kienboeck";
-
-            /*
-            // Suche nach zwei Spielern, die bereit sind
-            foreach (var entry in battleQueue)
-            {
-                if (entry.setGetUser1Name != string.Empty && entry.setGetUser2Name == string.Empty)
-                {
-                    if (firstPlayer == null)
-                    {
-                        firstPlayer = entry;
-                        break;
-                    }
-                }
-            }
-
-            // Wenn zwei Spieler in der Warteschlange sind
-            if (firstPlayer != null && secondPlayer == null)
-            {
-                foreach (var entry in battleQueue)
-                {
-                    if (entry.setGetUser1Name == string.Empty && entry.setGetUser2Name == string.Empty)
-                    {
-                        secondPlayer = entry;
-                        break;
-                    }
-                }
-            }
-            */
-
-            if (firstPlayer != null && secondPlayer != null)
-            {
-                Console.WriteLine($"Kampf zwischen {firstPlayer.setGetUser1Name} und {secondPlayer.setGetUser1Name} wurde gestartet.");
-                User user1 = users.FirstOrDefault(j => j != null && j.SetGetUsername == firstPlayer.setGetUser1Name);
-                User user2 = users.FirstOrDefault(j => j != null && j.SetGetUsername == secondPlayer.setGetUser1Name);
-                // Kämpfe starten und entferne beide Spieler aus der Warteschlange
-                var usersNew = new Battle().StartBattle(user1, user2);
-                //_database.RemoveFromBattleQueue(firstPlayer);
-                //_database.RemoveFromBattleQueue(secondPlayer);
-                
-          
-                return usersNew;
-            }
-
-            return (null, null);
+            playerQueue.Enqueue(user);
+            Console.WriteLine(user.SetGetUsername+ " ist in der warteschlange");
+            return CheckQueue();
+           // return (null,null);
         }
         /*
 
