@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "BattleClasses/1.0.0": {
         "dependencies": {
-          "DatabaseClassses": "1.0.0",
+          "DatabaseClasses": "1.0.0",
           "Npgsql": "8.0.5",
           "UserClasses": "1.0.0"
         },
@@ -98,14 +98,14 @@
           }
         }
       },
-      "DatabaseClassses/1.0.0": {
+      "DatabaseClasses/1.0.0": {
         "dependencies": {
           "CardsClasses": "1.0.0",
           "Npgsql": "8.0.5",
           "UserClasses": "1.0.0"
         },
         "runtime": {
-          "DatabaseClassses.dll": {
+          "DatabaseClasses.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -189,7 +189,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DatabaseClassses/1.0.0": {
+    "DatabaseClasses/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

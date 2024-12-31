@@ -58,7 +58,7 @@ namespace TCPserverClasses
             InitRoutes(routes);
         }
 
-        public void InitRoutes(Dictionary<string, Dictionary<string, Delegate>> routes)
+        private void InitRoutes(Dictionary<string, Dictionary<string, Delegate>> routes)
         {
 
             routes[_methodePost]["/users"] = new Func<List<Dictionary<string, object>>, NetworkStream, int>(_server.HandleUser);
@@ -70,6 +70,7 @@ namespace TCPserverClasses
 
             routes[_methodeGet]["/cards"] = new Func<string, NetworkStream, int>(_server.HandleStack);
             routes[_methodeGet]["/deck"] = new Func<string, NetworkStream, int>(_server.HandleDeck);
+            routes[_methodeGet]["/deck?format=plain"] = new Func<string, NetworkStream, int>(_server.HandleDeckOther);
             routes[_methodeGet]["/usersControll"] = new Func<string, NetworkStream, int>(_server.HandleUserControllGET);
             routes[_methodeGet]["/stats"] = new Func<string, NetworkStream, int>(_server.HandleStats);
             routes[_methodeGet]["/scoreboard"] = new Func<NetworkStream, int>(_server.HandleLeaderboard);

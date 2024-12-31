@@ -4,7 +4,7 @@ using UserClasses;
 using packageClasses;
 using BattleClasses;
 using AuthenticationClasses;
-using DatabaseClassses;
+using DatabaseClasses;
 
 using System.Text;
 using System.Runtime.Serialization;
@@ -269,6 +269,18 @@ namespace TCPserverClasses
                 }
             }
             return 0;
+        }
+
+        public int HandleDeckOther(string Auth, NetworkStream stream)
+        {
+            var UserAuthentic = _authent.IsAuthentic(Auth, users);
+            if (UserAuthentic.Item2 == 0)
+            {
+                UserAuthentic.Item1.printStackDeckOther(1);
+                SendResponse(stream, OK, "list of all cards in Deck");
+                return 0;
+            }
+            return -1;
         }
 
         public int HandleDeck(string Auth, NetworkStream stream)

@@ -54,12 +54,12 @@ namespace UserClasses
             get => Bio; set => Bio = value;
         }
 
-        public int SetGetLose
+        public virtual int SetGetLose
         {
             get => Lose; set => Lose = value;
         }
 
-        public int SetGetWins
+        public virtual int SetGetWins
         {
             get => Wins; set => Wins = value;
         }
@@ -212,6 +212,41 @@ namespace UserClasses
                 }
             }
             return 0;
+        }
+
+        public void printStackDeckOther(int i)
+        {
+            if (i == 1)
+            {
+                if (deck.Count == 0)
+                {
+                    Console.WriteLine("No cards in Deck");
+                    return;
+                }
+                if (deck.Count < 4)
+                {
+                    Console.WriteLine("Not enough Cards in Deck");
+                    return;
+                }
+                foreach (var card in deck)
+                {
+                    Console.WriteLine("{\"Id\":\""+ card.SetGetID + "\", \"Name\":\""+ card.SetGetName +"\", \"Damage\": \""+ card.SetGetDamage +"\", \"CardType\": \""+ card.SetGetCardType +"\", \"CardElement\": \""+ card.SetGetElement+"\"}");
+                }
+                return;
+            }
+            else
+            {
+                if (stack.Count == 0)
+                {
+                    Console.WriteLine("No cards in Stack");
+                    return;
+                }
+                foreach (var card in stack)
+                {
+                    Console.WriteLine("{\"Id\":\"" + card.SetGetID + "\", \"Name\":\"" + card.SetGetName + "\", \"Damage\": \"" + card.SetGetDamage + "\", \"CardType\": \"" + card.SetGetCardType + "\", \"CardElement\": \"" + card.SetGetElement + "\"}");
+                }
+                return;
+            }
         }
 
         public void printStackDeck(int i)

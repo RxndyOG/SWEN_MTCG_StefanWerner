@@ -52,7 +52,7 @@ namespace CardsClasses
             set => Family = value;
         }
 
-        public string SetGetID
+        public virtual string SetGetID
         {
             get => ID;
             set => ID = value;
@@ -85,6 +85,12 @@ namespace CardsClasses
 
         private void parseCardType(string name)
         {
+
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name cannot be null or empty", nameof(name));
+            }
+
             if (name.Contains("Spell"))
             {
                 CardType = 1;

@@ -103,8 +103,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClassses\\DatabaseClassses.csproj": {
-                "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClassses\\DatabaseClassses.csproj"
+              "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj": {
+                "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj"
               },
               "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\UserClasses\\UserClasses.csproj": {
                 "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\UserClasses\\UserClasses.csproj"
@@ -219,14 +219,14 @@
         }
       }
     },
-    "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClassses\\DatabaseClassses.csproj": {
+    "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClassses\\DatabaseClassses.csproj",
-        "projectName": "DatabaseClassses",
-        "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClassses\\DatabaseClassses.csproj",
+        "projectUniqueName": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj",
+        "projectName": "DatabaseClasses",
+        "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj",
         "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-        "outputPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClassses\\obj\\",
+        "outputPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -403,8 +403,8 @@
               "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\BattleClasses\\BattleClasses.csproj": {
                 "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\BattleClasses\\BattleClasses.csproj"
               },
-              "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClassses\\DatabaseClassses.csproj": {
-                "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClassses\\DatabaseClassses.csproj"
+              "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj": {
+                "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj"
               },
               "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\packageClasses\\packageClasses.csproj": {
                 "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\packageClasses\\packageClasses.csproj"

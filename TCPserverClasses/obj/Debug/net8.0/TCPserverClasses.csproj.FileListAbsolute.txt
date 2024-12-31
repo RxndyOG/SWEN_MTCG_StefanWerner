@@ -22,5 +22,5 @@ F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TCPserverClasses\bin
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TCPserverClasses\bin\Debug\net8.0\BattleClasses.pdb
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TCPserverClasses\bin\Debug\net8.0\AuthenticationClasses.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TCPserverClasses\bin\Debug\net8.0\AuthenticationClasses.pdb
-F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TCPserverClasses\bin\Debug\net8.0\DatabaseClassses.dll
-F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TCPserverClasses\bin\Debug\net8.0\DatabaseClassses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TCPserverClasses\bin\Debug\net8.0\DatabaseClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TCPserverClasses\bin\Debug\net8.0\DatabaseClasses.pdb

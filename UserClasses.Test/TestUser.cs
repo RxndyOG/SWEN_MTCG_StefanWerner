@@ -15,12 +15,6 @@ namespace UserClasses.Test
         {
         }
 
-        [Test]
-        public void Test1()
-        {
-            Assert.Pass();
-        }
-
         // testet ob die Stats Richtig Ausgegeben werden und ob die Elo richtig berechnet werden
         // should SUCCED
         [Test]
@@ -43,7 +37,7 @@ namespace UserClasses.Test
         }
 
         // testet ob die Stats Richtig Ausgegeben werden und ob die Elo richtig berechnet werden
-        // should FAIL
+        // should not be the same
         [Test]
         public void testPrintStats_scenarioShouldFail()
         {
@@ -60,7 +54,7 @@ namespace UserClasses.Test
 
             //ASSERT
             var output = stringWriter.ToString().Trim();
-            Assert.AreEqual("------------------\r\nWins: 10\r\nLose: 5\r\nElo: 110\r\n------------------", output);
+            Assert.AreNotEqual("------------------\r\nWins: 10\r\nLose: 5\r\nElo: 110\r\n------------------", output);
         }
 
         //testet ob user mit leerem Username erstellt werden Können
@@ -116,14 +110,14 @@ namespace UserClasses.Test
             user.VerifyPassword(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
 
             // ACT
-            var token = user.loginUser("testuser", "password");
+            var token = user.loginUser("max", "password");
 
             // ASSERT
             Assert.AreEqual("max-mtcgToken", token);
         }
 
         // user login testen mit falschen input und mit MOCKING
-        // should FAIL
+        // should not be the same
         [Test]
         public void testLoginUser_scenarioWithIncorrectValues()
         {
@@ -138,7 +132,7 @@ namespace UserClasses.Test
             var token = user.loginUser("testuser", "password"); 
 
             // ASSERT
-            Assert.AreEqual("max-mtcgToken", token);
+            Assert.AreNotEqual("max-mtcgToken", token);
         }
 
         // Open Package mit correct values MOCKING (sollte o returnen für keine fehler, 1 für anzahl an coins left und 4 für die anzahl der cards die der user hat)
@@ -166,6 +160,85 @@ namespace UserClasses.Test
             Assert.AreEqual(0, result.Item2); 
             Assert.AreEqual(1, user.SetGetCoins);
             Assert.AreEqual(4, user.SetGetCardsStack.Count);
+        }
+
+        // testet ob der user karten aus dem stack dem deck hinzufügen kann
+        // should Succede
+        [Test]
+        public void testAddToDeck_scenarioWithCorrectInput()
+        {
+            // ARRANGE
+            var user = new User();
+
+            var cardMock1 = Substitute.For<Cards>();
+            cardMock1.SetGetID.Returns("123");
+
+            var cardMock2 = Substitute.For<Cards>();
+            cardMock2.SetGetID.Returns("456");
+
+            var cardMock3 = Substitute.For<Cards>();
+            cardMock3.SetGetID.Returns("789");
+
+            var cardMock4 = Substitute.For<Cards>();
+            cardMock4.SetGetID.Returns("101");
+
+            user.SetGetCardsStack = new List<Cards> { cardMock1, cardMock2, cardMock3, cardMock4 };
+
+          
+            var body = new List<Dictionary<string, object>>
+        {
+            new Dictionary<string, object> { { "Value", "123" } },
+            new Dictionary<string, object> { { "Value", "456" } },
+            new Dictionary<string, object> { { "Value", "789" } },
+            new Dictionary<string, object> { { "Value", "101" } },
+        };
+
+            // ACT
+            var result = user.addToDeck(body);
+
+            // ASSERT
+            Assert.AreEqual(0, result);
+            Assert.AreEqual(4, user.SetGetCardsDeck.Count); 
+        }
+
+        // testet ob der user karten aus dem stack dem deck hinzufügen kann
+        // should not be the same
+        // should return -2 to indicate that id in stack is not same as choosen id from user
+        [Test]
+        public void testAddToDeck_scenarioWithIncorrectInput()
+        {
+            // ARRANGE
+            var user = new User();
+
+            var cardMock1 = Substitute.For<Cards>();
+            cardMock1.SetGetID.Returns("123");
+
+            var cardMock2 = Substitute.For<Cards>();
+            cardMock2.SetGetID.Returns("456");
+
+            var cardMock3 = Substitute.For<Cards>();
+            cardMock3.SetGetID.Returns("789");
+
+            var cardMock4 = Substitute.For<Cards>();
+            cardMock4.SetGetID.Returns("102");
+
+            user.SetGetCardsStack = new List<Cards> { cardMock1, cardMock2, cardMock3, cardMock4 };
+
+
+            var body = new List<Dictionary<string, object>>
+        {
+            new Dictionary<string, object> { { "Value", "123" } },
+            new Dictionary<string, object> { { "Value", "456" } },
+            new Dictionary<string, object> { { "Value", "789" } },
+            new Dictionary<string, object> { { "Value", "101" } },
+        };
+
+            // ACT
+            var result = user.addToDeck(body);
+
+            // ASSERT
+            Assert.AreNotEqual(0, result);
+            Assert.AreNotEqual(4, user.SetGetCardsDeck.Count);
         }
 
     }

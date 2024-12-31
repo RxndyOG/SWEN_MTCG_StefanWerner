@@ -1,6 +1,6 @@
 ﻿using UserClasses;
 using CardsClasses;
-using DatabaseClassses;
+using DatabaseClasses;
 using System.Text;
 using System.Collections.Concurrent;
 using System.Net.Sockets;
@@ -19,7 +19,7 @@ namespace BattleClasses
             _database = new Database();
         }
 
-        public static int calcNormalBattle(Cards user1Card, Cards user2Card)
+        private static int calcNormalBattle(Cards user1Card, Cards user2Card)
         {
             float damageUser1Card = user1Card.SetGetDamage;
             float damageUser2Card = user2Card.SetGetDamage;
@@ -125,7 +125,7 @@ namespace BattleClasses
             }
         }
 
-        public static int CalcMonsterBattle(Cards user1Card, Cards user2Card)
+        private static int CalcMonsterBattle(Cards user1Card, Cards user2Card)
         {
             float damageUser1Card = user1Card.SetGetDamage;
             float damageUser2Card = user2Card.SetGetDamage;
@@ -356,7 +356,7 @@ namespace BattleClasses
             return (user1, user2);
         }
 
-        public static (User, User) CheckQueue()
+        private static (User, User) CheckQueue()
         {
             
             lock (battlelock)
