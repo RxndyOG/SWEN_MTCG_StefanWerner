@@ -1,6 +1,5 @@
 ﻿using UserClasses;
 using CardsClasses;
-using DatabaseClasses;
 using System.Text;
 using System.Collections.Concurrent;
 using System.Net.Sockets;
@@ -9,14 +8,14 @@ namespace BattleClasses
 {
     public class Battle
     {
-        private Database _database;
+
 
         private static ConcurrentQueue<User> playerQueue = new ConcurrentQueue<User>();
         private static readonly object battlelock = new object();
 
         public Battle()
         {
-            _database = new Database();
+
         }
 
         private static int calcNormalBattle(Cards user1Card, Cards user2Card)

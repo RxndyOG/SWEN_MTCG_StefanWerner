@@ -7,12 +7,6 @@ using AuthenticationClasses;
 using DatabaseClasses;
 
 using System.Text;
-using System.Runtime.Serialization;
-using System.IO;
-using static System.Net.Mime.MediaTypeNames;
-using System.Runtime.CompilerServices;
-using System;
-using System.Reflection;
 
 namespace TCPserverClasses
 {
