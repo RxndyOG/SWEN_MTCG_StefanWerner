@@ -76,8 +76,6 @@ namespace TCPserverClasses
             routes[_methodeGet]["/scoreboard"] = new Func<NetworkStream, int>(_server.HandleLeaderboard);
             routes[_methodeGet]["/tradings"] = new Func<string, NetworkStream, int>(_server.HandleTrading);
             
-
-
             routes[_methodePut]["/deck"] = new Func<List<Dictionary<string, object>>, string, NetworkStream, int>(_server.HandleDeckInput);
             routes[_methodePut]["/usersControll"] = new Func<List<Dictionary<string, object>>, string, NetworkStream, int>(_server.HandleUserControllPUT);
         }
