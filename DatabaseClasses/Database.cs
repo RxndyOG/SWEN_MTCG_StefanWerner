@@ -25,6 +25,7 @@ namespace DatabaseClasses
 
         private readonly object connectionLock = new object();
 
+        // connects to the database
         private void OpenConnection()
         {
             lock (connectionLock)
@@ -36,6 +37,7 @@ namespace DatabaseClasses
             }
         }
 
+        // disconnects from the database
         private void CloseConnection()
         {
             if (connection.State != System.Data.ConnectionState.Closed)
@@ -44,6 +46,7 @@ namespace DatabaseClasses
             }
         }
 
+        // tests if user exists
         public bool testForUser(string username)
         {
 
@@ -67,6 +70,7 @@ namespace DatabaseClasses
             }
         }
 
+        // tests if token exists
         public bool testForToken(string token)
         {
 
@@ -90,6 +94,7 @@ namespace DatabaseClasses
             }
         }
 
+        // gets all the cards from deck from user
         public List<User> GetCards(List<User> users)
         {
             for (int i = 0; i < users.Count(); i++)
@@ -110,58 +115,24 @@ namespace DatabaseClasses
             return users;
         }
 
-        /*
-        public User getUserExact(int userID)
-        {
-            OpenConnection();
-
-            string query = "SELECT * FROM users WHERE id = @userId";
-
-            User user = new User();
-
-            using (var cmd = new NpgsqlCommand(query, connection))
-            {
-                cmd.Parameters.AddWithValue("userId", userID);
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-
-                        user.SetGetId = userID;
-                        user.SetGetUsername = reader["username"] != DBNull.Value ? reader["username"].ToString() : string.Empty;
-                        user.SetGetPassword = reader["password"] != DBNull.Value ? reader["password"].ToString() : string.Empty;
-                        user.SetGetToken = reader["token"] != DBNull.Value ? reader["token"].ToString() : string.Empty;
-                        user.SetGetBio = reader["bio"] != DBNull.Value ? reader["bio"].ToString() : string.Empty;
-                        user.SetGetCoins = reader["coins"] != DBNull.Value ? Convert.ToInt32(reader["coins"]) : 0;
-                        user.SetGetWins = reader["wins"] != DBNull.Value ? Convert.ToInt32(reader["wins"]) : 0;
-                        user.SetGetLose = reader["lose"] != DBNull.Value ? Convert.ToInt32(reader["lose"]) : 0;
-                    }
-                }
-            }
-
-            CloseConnection();
-            return user;
-        }
-        */
-
+        // get all the users 
         public List<User> GetUser()
         {
             OpenConnection();
 
             List<User> users = new List<User>();
 
-            string query = "SELECT * FROM users"; // Abfrage alle Benutzer
+            string query = "SELECT * FROM users";
 
             using (var cmd = new NpgsqlCommand(query, connection))
             {
                 using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read()) // Alle Benutzer durchlaufen
+                    while (reader.Read())
                     {
                         User user = new User();
 
-                        user.SetGetId = Convert.ToInt32(reader["id"]); // Benutzer-ID setzen
+                        user.SetGetId = Convert.ToInt32(reader["id"]);
                         user.SetGetUsername = reader["username"] != DBNull.Value ? reader["username"].ToString() : string.Empty;
                         user.SetGetPassword = reader["password"] != DBNull.Value ? reader["password"].ToString() : string.Empty;
                         user.SetGetToken = reader["token"] != DBNull.Value ? reader["token"].ToString() : string.Empty;
@@ -179,6 +150,7 @@ namespace DatabaseClasses
             return users;
         }
 
+        // tests if user exists
         private bool UserExists(string username)
         {
             OpenConnection();
@@ -190,10 +162,11 @@ namespace DatabaseClasses
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
                 CloseConnection();
-                return count > 0; // Gibt true zurück, wenn der Benutzer existiert
+                return count > 0;
             }
         }
 
+        // get the decks saved in database
         private List<Cards> getSavedDeck(User user)
         {
             List<Cards> userCards = new List<Cards>();
@@ -208,10 +181,10 @@ namespace DatabaseClasses
 
                 using (var reader = cmd.ExecuteReader())
                 {
-                    if (reader.Read()) // Prüft, ob eine Zeile verfügbar ist
+                    if (reader.Read()) 
                     {
-                        // Liest die Kartenwerte aus der Zeile
-                        for (int i = 0; i < 4; i++) // Annahme: Es gibt 4 Karten-IDs
+                       
+                        for (int i = 0; i < 4; i++) 
                         {
                             Cards card = new Cards();
                             card.SetGetID = !reader.IsDBNull(i) ? reader.GetString(i) : string.Empty;
@@ -225,6 +198,7 @@ namespace DatabaseClasses
             return userCards;
         }
 
+        // test if deck exists
         public bool testForDeck(User user)
         {
             OpenConnection();
@@ -237,10 +211,11 @@ namespace DatabaseClasses
                 cmd.Parameters.AddWithValue("username", user.SetGetUsername);
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
                 CloseConnection();
-                return count > 0; // Gibt true zurück, wenn der Benutzer existiert
+                return count > 0;
             }
         }
 
+        // saves the deck of the user
         public void saveDeck(User user, bool deckExists)
         {
             if (deckExists)
@@ -285,13 +260,14 @@ namespace DatabaseClasses
             }
         }
 
+        // saves the users pwd and username
         public void insertIntoDatabase(string user, string pwd)
         {
 
             if (UserExists(user))
             {
                 Console.WriteLine("Benutzer existiert bereits.");
-                return; // Benutzername ist bereits vergeben
+                return;
             }
 
 
@@ -313,6 +289,7 @@ namespace DatabaseClasses
             CloseConnection();
         }
 
+        // get all cards from user
         private List<Cards> GetUserCards(string username)
         {
             List<Cards> userCards = new List<Cards>();
@@ -346,6 +323,7 @@ namespace DatabaseClasses
             return userCards;
         }
 
+        // saves user cards
         public void InsertUserCards(User user, int count)
         {
             OpenConnection();
@@ -402,14 +380,10 @@ namespace DatabaseClasses
 
         public void updateDecksValues(User user, int id, string olduser)
         {
-            // Open the connection
             OpenConnection();
 
             try
             {
-
-
-                // Update the deck table
                 using (var cmd3 = new NpgsqlCommand("UPDATE deck SET username = @username WHERE username = @olduser", connection))
                 {
                     cmd3.Parameters.AddWithValue("username", user.SetGetUsername);
@@ -420,20 +394,17 @@ namespace DatabaseClasses
             }
             finally
             {
-                // Ensure the connection is closed
                 CloseConnection();
             }
         }
 
         public void updateCardsValues(User user, int id, string olduser)
         {
-            // Open the connection
+           
             OpenConnection();
 
             try
             {
-
-                // Update the cards table
                 using (var cmd2 = new NpgsqlCommand("UPDATE cards SET \"user\" = @username WHERE \"user\" = @olduser", connection))
                 {
                     cmd2.Parameters.AddWithValue("username", user.SetGetUsername);
@@ -445,19 +416,16 @@ namespace DatabaseClasses
             }
             finally
             {
-                // Ensure the connection is closed
                 CloseConnection();
             }
         }
 
         public void updateUserValues(User user, int id, string olduser)
         {
-            // Open the connection
             OpenConnection();
 
             try
             {
-                // Update the users table
                 using (var cmd1 = new NpgsqlCommand("UPDATE users SET username = @username, password = @password, token = @token, coins = @coins, image = @image, bio = @bio, wins = @wins, lose = @lose WHERE username = @olduser", connection))
                 {
                     cmd1.Parameters.AddWithValue("username", user.SetGetUsername);
@@ -475,7 +443,6 @@ namespace DatabaseClasses
             }
             finally
             {
-                // Ensure the connection is closed
                 CloseConnection();
             }
         }

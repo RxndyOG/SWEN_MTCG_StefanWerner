@@ -18,6 +18,7 @@ namespace BattleClasses
 
         }
 
+        // calculates the winner of Normal battles
         private static int calcNormalBattle(Cards user1Card, Cards user2Card)
         {
             float damageUser1Card = user1Card.SetGetDamage;
@@ -124,6 +125,7 @@ namespace BattleClasses
             }
         }
 
+        // calculates the winner of Monstr battles
         private static int CalcMonsterBattle(Cards user1Card, Cards user2Card)
         {
             float damageUser1Card = user1Card.SetGetDamage;
@@ -212,6 +214,7 @@ namespace BattleClasses
 
         }
 
+        // calculates the winner and loser
         public static int BattleLogic(User user1, User user2)
         {
             List<Cards> user1DeckTemp = user1.SetGetCardsDeck;
@@ -355,6 +358,7 @@ namespace BattleClasses
             return (user1, user2);
         }
 
+        // waits for clients to join queue
         private static (User, User) CheckQueue()
         {
             
@@ -383,6 +387,7 @@ namespace BattleClasses
            // return (null,null);
         }
         
+        // prints leaderboard
         public void printLeaderboard(List<User> users)
         {
             IEnumerable<User> query = users.OrderByDescending(t => t.SetGetElo);

@@ -95,6 +95,7 @@ namespace UserClasses
             set => deck = value;
         }
 
+        // prints user stats
         public void printStats()
         {
             Console.WriteLine("------------------");
@@ -105,6 +106,7 @@ namespace UserClasses
             return;
         }
 
+        // changes the profil data of the user
         public string changeUserData(List<Dictionary<string, object>> body)
         {
 
@@ -140,6 +142,7 @@ namespace UserClasses
             return oldusername;
         }
 
+        // prints the data of the user
         public void printUserData()
         {
             Console.WriteLine("--------------------------------");
@@ -153,6 +156,7 @@ namespace UserClasses
             return;
         }
 
+        // adds the cards from stack to deck when user reenters site. gets the cards from database and safes them
         public void AddSavedCardsToDeck(List<Cards> TempDeck)
         {
             List<Cards> TempTempDeck = new List<Cards>(TempDeck);
@@ -174,6 +178,7 @@ namespace UserClasses
             }
         }
 
+        // adds the selected cards to deck
         public int addToDeck(List<Dictionary<string, object>> body)
         {
             if(body.Count() != 4)
@@ -214,6 +219,7 @@ namespace UserClasses
             return 0;
         }
 
+        // prints the stack or the deck as json
         public void printStackDeckOther(int i)
         {
             if (i == 1)
@@ -249,6 +255,7 @@ namespace UserClasses
             }
         }
 
+        // prints the stack or deck
         public void printStackDeck(int i)
         {
             if (i == 1)
@@ -294,6 +301,7 @@ namespace UserClasses
             }
         }
 
+        // opens packages
         public (List<Packages>, int) openPackage(List<Packages> packs)
         {
             if (packs.Count != 0)
@@ -317,6 +325,7 @@ namespace UserClasses
             return (packs, -2);
         }
 
+        // creates a user
         public User createUser(string pwd, string username, int ID)
         {
 
@@ -328,6 +337,7 @@ namespace UserClasses
             return user;
         }
 
+        // verifies password with hashed password in databank
         public virtual bool VerifyPassword(string password, string storedHash)
         {
             byte[] hashBytes = Convert.FromBase64String(storedHash);
@@ -349,6 +359,7 @@ namespace UserClasses
             return true;
         }
 
+        // logges user in
         public string loginUser(string user, string password)
         {
             if (username == user && VerifyPassword(password, pwd))

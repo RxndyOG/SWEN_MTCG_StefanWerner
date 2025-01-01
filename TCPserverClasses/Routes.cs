@@ -24,9 +24,10 @@ namespace TCPserverClasses
         public Routes(TCPServer server)
         {
             _authent = new Authent();
-            _server = server; // Speichere die Instanz von TCPServer
+            _server = server;
         }
 
+        //parsed den stream
         public (string, string, List<Dictionary<string, object>>, string) CalcRoutes(NetworkStream stream)
         {
             StreamReader reader = new StreamReader(stream);
@@ -46,6 +47,7 @@ namespace TCPserverClasses
             return (method, url, deserialBody, Content.Item2);
         }
 
+        // creates the dictionary for routing
         public void HandleRouting()
         {
             routes = new Dictionary<string, Dictionary<string, Delegate>>
@@ -58,6 +60,7 @@ namespace TCPserverClasses
             InitRoutes(routes);
         }
 
+        // initializies the routes for each method and URL
         private void InitRoutes(Dictionary<string, Dictionary<string, Delegate>> routes)
         {
 
@@ -80,6 +83,7 @@ namespace TCPserverClasses
             routes[_methodePut]["/usersControll"] = new Func<List<Dictionary<string, object>>, string, NetworkStream, int>(_server.HandleUserControllPUT);
         }
 
+        // handles the requestet route of the user
         public void HandleRequest(List<Dictionary<string, object>> deserialBody, string methode, string url, string Auth, NetworkStream stream)
         {
 

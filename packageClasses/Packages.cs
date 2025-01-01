@@ -12,6 +12,7 @@ namespace packageClasses
 
         List<Cards> cardsInPack;
 
+        // creates packages with the given values by admin
         public (Packages, int) createPackage(string Auth, List<Dictionary<string, object>> body)
         {
             string inputToken = Auth.Replace("Bearer ", "").Trim();

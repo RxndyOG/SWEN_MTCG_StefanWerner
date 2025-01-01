@@ -43,6 +43,7 @@ namespace TCPserverClasses
         private const string Created = "201";
         private const string NotFound = "404";
 
+        // startet den TCPListener
         public void Start()
         {
             _listener = new TcpListener(IPAddress.Any, _port);
@@ -69,7 +70,8 @@ namespace TCPserverClasses
                 });
             }
         }
-
+        
+        // Handles the Battle system, this gets called when a client wants to Battle
         public int HandleBattleList(string Auth, NetworkStream stream)
         {
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
@@ -110,6 +112,7 @@ namespace TCPserverClasses
             return -1;
         }
 
+        // not finished should be the trading Handler for POST methode but just outputs the stats
         public int HandleTradingPost(List<Dictionary<string, object>> body, string Auth, NetworkStream stream)
         {
 
@@ -130,6 +133,7 @@ namespace TCPserverClasses
             return -1;
         }
 
+        // not finished should be the trading but just outputs the stats
         public int HandleTrading(string Auth, NetworkStream stream)
         {
             lock (padlock)
@@ -149,6 +153,7 @@ namespace TCPserverClasses
             return -1;
         }
 
+        // handles the leaderboard when the client wants to see it
         public int HandleLeaderboard(NetworkStream stream)
         {
             lock (padlock)
@@ -162,6 +167,7 @@ namespace TCPserverClasses
             return 0;
         }
 
+        // handles the stats output ehen the client wants to see the stats
         public int HandleStats(string Auth, NetworkStream stream)
         {
             lock (padlock)
@@ -182,6 +188,7 @@ namespace TCPserverClasses
             return -1;
         }
 
+        // handles the user Profil change when the user uses POST methode
         public int HandleUserControllPUT(List<Dictionary<string, object>> body, string Auth, NetworkStream stream)
         {
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
@@ -220,6 +227,7 @@ namespace TCPserverClasses
             return -1;
         }
 
+        // handles the user Profile change on GET methode
         public int HandleUserControllGET(string Auth, NetworkStream stream)
         {
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
@@ -233,6 +241,7 @@ namespace TCPserverClasses
             return -1;
         }
 
+        // Hanbles the deck creation when the user wants to put cards in deck
         public int HandleDeckInput(List<Dictionary<string, object>> body, string Auth, NetworkStream stream)
         {
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
@@ -265,6 +274,7 @@ namespace TCPserverClasses
             return 0;
         }
 
+        // handles the deck print as a json object
         public int HandleDeckOther(string Auth, NetworkStream stream)
         {
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
@@ -277,6 +287,7 @@ namespace TCPserverClasses
             return -1;
         }
 
+        // handles the deck print out
         public int HandleDeck(string Auth, NetworkStream stream)
         {
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
@@ -289,6 +300,7 @@ namespace TCPserverClasses
             return -1;
         }
 
+        // handles the stack print out
         public int HandleStack(string Auth, NetworkStream stream)
         {
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
@@ -301,6 +313,7 @@ namespace TCPserverClasses
             return 1;
         }
 
+        // handles the transfer of cards to the user
         public int HandleTransPackages(List<Dictionary<string, object>> body, string Auth, NetworkStream stream)
         {
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
@@ -336,6 +349,7 @@ namespace TCPserverClasses
             return 0;
         }
 
+        // handles the creation of packages by the admin
         public int HandlePackages(List<Dictionary<string, object>> receive, string Auth, NetworkStream stream)
         {
 
@@ -382,6 +396,7 @@ namespace TCPserverClasses
 
         }
 
+        // handles the user login
         public int HandleSession(List<Dictionary<string, object>> receive, NetworkStream stream)
         {
             User userExists = users.FirstOrDefault(j => j != null && j.SetGetUsername == receive[0]["Username"].ToString());
@@ -430,6 +445,7 @@ namespace TCPserverClasses
             return 1;
         }
 
+        // sends a response to the user
         public void SendResponse(NetworkStream stream, string status, string body)
         {
             string response = $"HTTP/1.1 {status}\r\n" +

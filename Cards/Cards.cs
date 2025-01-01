@@ -70,6 +70,7 @@ namespace CardsClasses
             set => Damage = value;
         }
 
+        // creates cards
         public Cards createCard(string id, string name, float damage)
         {
             Cards card = new Cards();
