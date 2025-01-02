@@ -5,6 +5,8 @@ using packageClasses;
 using BattleClasses;
 using AuthenticationClasses;
 using DatabaseClasses;
+using TradingClasses;
+using CardsClasses;
 
 using System.Text;
 
@@ -77,6 +79,13 @@ namespace TCPserverClasses
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
             if (UserAuthentic.Item2 == 0)
             {
+                if (UserAuthentic.Item1.SetGetCardsDeck.Count() < 4)
+                {
+                    Console.WriteLine("Not enough cards in deck");
+                    SendResponse(stream, NotFound, "Error in Battle");
+                    return -1;
+                }
+
                 var usersNew = _battle.CalculateBattleList(UserAuthentic.Item1, users);
 
                 if (usersNew.Item1 != null)
@@ -112,45 +121,253 @@ namespace TCPserverClasses
             return -1;
         }
 
-        // not finished should be the trading Handler for POST methode but just outputs the stats
-        public int HandleTradingPost(List<Dictionary<string, object>> body, string Auth, NetworkStream stream)
+        public int HandleTradingTrade(List<Dictionary<string, object>> body, string Auth, string id, NetworkStream stream)
         {
-
-            lock (padlock)
-            {
-                _database = new Database();
-                users = _database.GetUser();
-                users = _database.GetCards(users);
-            }
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
             if (UserAuthentic.Item2 == 0)
             {
-                UserAuthentic.Item1.printStats();
-                SendResponse(stream, OK, "user Stats");
+                List<Trading> tradingDeals = new List<Trading>();
+                lock (padlock)
+                {
+                    _database = new Database();
+                    tradingDeals = _database.GetTradingDeals();
+                }
+                if (tradingDeals.Count() < 1)
+                {
+                    Console.WriteLine("No trades Open");
+                    SendResponse(stream, OK, "Empty Trading List");
+                    return -1;
+                }
+                foreach (Trading trading in tradingDeals)
+                {
+
+                    if (trading.SetGetUsername == UserAuthentic.Item1.SetGetUsername)
+                    {
+                        Console.WriteLine("You Can't trade with yourself");
+                        SendResponse(stream, NotFound, "Trade Cant be completed");
+                        return 1;
+                    }
+                    else
+                    {
+                        if (trading.SetGetTradingId == id)
+                        {
+                            List<User> tradePartner = _database.GetCards(users);
+                            foreach (User user in tradePartner)
+                            {
+                                if (user.SetGetUsername == trading.SetGetUsername)
+                                {
+                                    foreach (Cards card in user.SetGetCardsStack)
+                                    {
+                                        if (card.SetGetID == trading.SetGetCardId)
+                                        {
+                                            lock (padlock)
+                                            {
+                                                if (card.SetGetDamage >= trading.SetGetDamage)
+                                                {
+                                                    
+                                                    foreach (Cards acceptedCard in UserAuthentic.Item1.SetGetCardsStack)
+                                                    {
+                                                        foreach (var ElementBody in body)
+                                                        {
+                                                            if (ElementBody.ContainsKey("ID"))
+                                                            {
+                                                                if (acceptedCard.SetGetID == ElementBody["ID"].ToString())
+                                                                {
+                                                                    _database.InsertTradedCard(card, UserAuthentic.Item1.SetGetUsername);
+                                                                    _database.DeleteTradedCard(card, user.SetGetUsername);
+
+                                                                    _database.InsertTradedCard(acceptedCard, user.SetGetUsername);
+                                                                    _database.DeleteTradedCard(acceptedCard, UserAuthentic.Item1.SetGetUsername);
+
+                                                                    _database.updateUserValues(UserAuthentic.Item1, UserAuthentic.Item1.SetGetId + 1, UserAuthentic.Item1.SetGetUsername);
+                                                                    _database.updateCardsValues(UserAuthentic.Item1, UserAuthentic.Item1.SetGetId + 1, UserAuthentic.Item1.SetGetUsername);
+                                                                    _database.updateDecksValues(UserAuthentic.Item1, UserAuthentic.Item1.SetGetId + 1, UserAuthentic.Item1.SetGetUsername);
+                                                                    _database.updateUserValues(user, UserAuthentic.Item1.SetGetId + 1, user.SetGetUsername);
+                                                                    _database.updateCardsValues(user, UserAuthentic.Item1.SetGetId + 1, user.SetGetUsername);
+                                                                    _database.updateDecksValues(user, UserAuthentic.Item1.SetGetId + 1, user.SetGetUsername);
+
+                                                                    _database.DeleteTradingDeal(user.SetGetUsername, trading.SetGetTradingId);
+
+                                                                    Console.WriteLine("Trade Completed " + card.SetGetID + ": new Owner " + UserAuthentic.Item1.SetGetUsername);
+                                                                    Console.WriteLine("Trade Completed " + acceptedCard.SetGetID + ": new Owner " + user.SetGetUsername);
+                                                                    SendResponse(stream, OK, "Trade Completed");
+                                                                    return 0;
+                                                                }
+                                                            }
+                                                            
+                                                        }
+                                                        
+                                                    }
+
+                                                    SendResponse(stream, NotFound, "AcceptedCard Not in your Inventory");
+                                                    Console.WriteLine("The Card Provided does not belong to you");
+                                                    return 1;
+                                                }
+
+                                                SendResponse(stream, NotFound, "Not enough Damage for Min Damage Requirement");
+                                                Console.WriteLine("The Damage Of the Card does not equal or excede the min damage");
+                                                return 1;
+                                            }
+                                            
+
+                                            return 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                SendResponse(stream, Created, "Trading List");
                 return 0;
+            }
+            SendResponse(stream, NotFound, "User Doesn't Exist");
+            return -1;
+            return 1;
+        }
+
+
+        // POSTs the trading deal
+        public int HandleTradingPost(List<Dictionary<string, object>> body, string Auth, NetworkStream stream)
+        {
+
+            var UserAuthentic = _authent.IsAuthentic(Auth, users);
+            if (UserAuthentic.Item2 == 0)
+            {
+          
+                foreach (var elementBody in body)
+                {
+                    if (elementBody.ContainsKey("Id"))
+                    {
+                 
+                        lock (padlock)
+                        {
+                            if (_database.testForIDWithGivenUsername(UserAuthentic.Item1.SetGetUsername, elementBody["CardToTrade"].ToString()) == true && _database.testIfTradingAlreadyExists(elementBody["CardToTrade"].ToString()) == false)
+                            {
+                                
+                                Trading trading = new Trading();
+                                trading.SetGetUsername = UserAuthentic.Item1.SetGetUsername;
+                                trading.SetGetTradingId = elementBody["Id"].ToString();
+                                trading.SetGetCardId = elementBody["CardToTrade"].ToString();
+                                int cardType;
+                                if (elementBody["Type"].ToString() == "monster")
+                                {
+                                    cardType = 0;
+                                }
+                                else
+                                {
+                                    cardType = 1;
+                                }
+                                trading.SetGetCardType = cardType;
+                                trading.SetGetDamage = (float)Convert.ToDecimal(elementBody["MinimumDamage"]);
+                                _database.InsertTradingDeal(trading);
+                                Console.WriteLine("Trade Created");
+
+                                SendResponse(stream, Created, "Trade Created");
+                                return 0;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Trade already exists");
+                                SendResponse(stream, NotFound, "Trade Exists");
+                                return 1;
+                            }
+                        }
+                    }
+                }
             }
             SendResponse(stream, NotFound, "User doesn't Exist");
             return -1;
         }
 
-        // not finished should be the trading but just outputs the stats
+        // prints all the trading deals
         public int HandleTrading(string Auth, NetworkStream stream)
         {
-            lock (padlock)
-            {
-                _database = new Database();
-                users = _database.GetUser();
-                users = _database.GetCards(users);
-            }
             var UserAuthentic = _authent.IsAuthentic(Auth, users);
             if (UserAuthentic.Item2 == 0)
             {
-                UserAuthentic.Item1.printStats();
-                SendResponse(stream, OK, "user Stats");
+                List<Trading> tradingDeals = new List<Trading>();
+                lock (padlock)
+                {
+                    _database = new Database();
+                    tradingDeals = _database.GetTradingDeals();
+                }
+                if (tradingDeals.Count() < 1)
+                {
+                    Console.WriteLine("No trades Open");
+                    SendResponse(stream, OK, "Empty Trading List");
+                    return -1;
+                }
+                foreach (Trading trading in tradingDeals)
+                {
+                    if (trading.SetGetUsername == UserAuthentic.Item1.SetGetUsername)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    Console.WriteLine("--------------------------------");
+                    Console.WriteLine("TradingID: " + trading.SetGetTradingId);
+                    Console.WriteLine("Username: " + trading.SetGetUsername);
+                    Console.WriteLine("CardID: " + trading.SetGetCardId);
+                    string cardType;
+                    if (trading.SetGetCardType == 1)
+                    {
+                        cardType = "Spell";
+                    }
+                    else 
+                    {
+                        cardType = "Monster";
+                    }
+                    Console.WriteLine("Card Type: " + cardType);
+                    Console.WriteLine("Min Damage: " + trading.SetGetDamage);
+                    Console.WriteLine("--------------------------------");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                SendResponse(stream, Created, "Trading List");
                 return 0;
             }
-            SendResponse(stream, NotFound, "User doesn't Exist");
+            SendResponse(stream, NotFound, "User Doesn't Exist");
             return -1;
+        }
+
+        // Deletes Trading deals
+        public int HandleDeleteTrading(string Auth, string id, NetworkStream stream)
+        {
+            var UserAuthentic = _authent.IsAuthentic(Auth, users);
+            if (UserAuthentic.Item2 == 0)
+            {
+                List<Trading> tradingDeals = new List<Trading>();
+                lock (padlock)
+                {
+                    _database = new Database();
+                    tradingDeals = _database.GetTradingDeals();
+                }
+                if (tradingDeals.Count() < 1)
+                {
+                    Console.WriteLine("No trades Open");
+                    SendResponse(stream, OK, "Empty Trading List");
+                    return -1;
+                }
+                foreach (Trading trading in tradingDeals)
+                {
+                   
+                    if (trading.SetGetUsername == UserAuthentic.Item1.SetGetUsername)
+                    {
+                       
+                        if (trading.SetGetTradingId == id)
+                        {
+                            _database.DeleteTradingDeal(trading.SetGetUsername, trading.SetGetTradingId);
+                            Console.WriteLine("Trade Deleted");
+                            SendResponse(stream, Created, "Trade Deleted");
+                            return 0;
+                        }
+                    }
+                }
+                SendResponse(stream, Created, "Trading List");
+                return 0;
+            }
+            SendResponse(stream, NotFound, "User Doesn't Exist");
+            return -1;
+            return 1;
         }
 
         // handles the leaderboard when the client wants to see it

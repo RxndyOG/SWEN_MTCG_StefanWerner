@@ -168,6 +168,7 @@
         "dependencies": {
           "CardsClasses": "1.0.0",
           "Npgsql": "8.0.5",
+          "TradingClasses": "1.0.0",
           "UserClasses": "1.0.0"
         },
         "compile": {
@@ -188,6 +189,16 @@
         },
         "runtime": {
           "bin/placeholder/packageClasses.dll": {}
+        }
+      },
+      "TradingClasses/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/TradingClasses.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TradingClasses.dll": {}
         }
       },
       "UserClasses/1.0.0": {
@@ -463,6 +474,11 @@
       "path": "../packageClasses/packageClasses.csproj",
       "msbuildProject": "../packageClasses/packageClasses.csproj"
     },
+    "TradingClasses/1.0.0": {
+      "type": "project",
+      "path": "../TradingClasses/TradingClasses.csproj",
+      "msbuildProject": "../TradingClasses/TradingClasses.csproj"
+    },
     "UserClasses/1.0.0": {
       "type": "project",
       "path": "../UserClasses/UserClasses.csproj",
@@ -473,8 +489,10 @@
     "net8.0": [
       "AuthenticationClasses >= 1.0.0",
       "BattleClasses >= 1.0.0",
+      "CardsClasses >= 1.0.0",
       "DatabaseClasses >= 1.0.0",
       "Newtonsoft.Json >= 13.0.3",
+      "TradingClasses >= 1.0.0",
       "UserClasses >= 1.0.0",
       "packageClasses >= 1.0.0"
     ]
@@ -518,11 +536,17 @@
             "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\BattleClasses\\BattleClasses.csproj": {
               "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\BattleClasses\\BattleClasses.csproj"
             },
+            "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\Cards\\CardsClasses.csproj": {
+              "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\Cards\\CardsClasses.csproj"
+            },
             "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj": {
               "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\DatabaseClasses\\DatabaseClasses.csproj"
             },
             "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\packageClasses\\packageClasses.csproj": {
               "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\packageClasses\\packageClasses.csproj"
+            },
+            "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\TradingClasses\\TradingClasses.csproj": {
+              "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\TradingClasses\\TradingClasses.csproj"
             },
             "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\UserClasses\\UserClasses.csproj": {
               "projectPath": "F:\\FHTechnikum\\Semester 3\\SWEN\\MonsterCardGameOOP\\SWEN.MTCG\\UserClasses\\UserClasses.csproj"

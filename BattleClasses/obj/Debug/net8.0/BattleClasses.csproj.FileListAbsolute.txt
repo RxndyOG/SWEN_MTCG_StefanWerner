@@ -20,3 +20,5 @@ F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\BattleClasses\obj\De
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\BattleClasses\obj\Debug\net8.0\ref\BattleClasses.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\BattleClasses\bin\Debug\net8.0\DatabaseClasses.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\BattleClasses\bin\Debug\net8.0\DatabaseClasses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\BattleClasses\bin\Debug\net8.0\TradingClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\BattleClasses\bin\Debug\net8.0\TradingClasses.pdb

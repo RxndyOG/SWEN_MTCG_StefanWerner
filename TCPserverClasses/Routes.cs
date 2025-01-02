@@ -20,6 +20,7 @@ namespace TCPserverClasses
         private string _methodePost = "POST";
         private string _methodeGet = "GET";
         private string _methodePut = "PUT";
+        private string _methodeDelete = "DELETE";
 
         public Routes(TCPServer server)
         {
@@ -54,7 +55,8 @@ namespace TCPserverClasses
             {
                 { _methodeGet, new Dictionary<string, Delegate>() },
                 { _methodePost, new Dictionary<string, Delegate>() },
-                { _methodePut, new Dictionary<string, Delegate>() }
+                { _methodePut, new Dictionary<string, Delegate>() },
+                { _methodeDelete, new Dictionary<string, Delegate>() }
             };
 
             InitRoutes(routes);
@@ -70,6 +72,7 @@ namespace TCPserverClasses
             routes[_methodePost]["/transactions/packages"] = new Func<List<Dictionary<string, object>>, string, NetworkStream, int>(_server.HandleTransPackages);
             routes[_methodePost]["/battles"] = new Func<string, NetworkStream, int>(_server.HandleBattleList);
             routes[_methodePost]["/tradings"] = new Func<List<Dictionary<string, object>>, string, NetworkStream, int>(_server.HandleTradingPost);
+            routes[_methodePost]["/tradings/trade"] = new Func<List<Dictionary<string, object>>, string, string, NetworkStream, int>(_server.HandleTradingTrade);
 
             routes[_methodeGet]["/cards"] = new Func<string, NetworkStream, int>(_server.HandleStack);
             routes[_methodeGet]["/deck"] = new Func<string, NetworkStream, int>(_server.HandleDeck);
@@ -81,6 +84,8 @@ namespace TCPserverClasses
             
             routes[_methodePut]["/deck"] = new Func<List<Dictionary<string, object>>, string, NetworkStream, int>(_server.HandleDeckInput);
             routes[_methodePut]["/usersControll"] = new Func<List<Dictionary<string, object>>, string, NetworkStream, int>(_server.HandleUserControllPUT);
+
+            routes[_methodeDelete]["/tradings/delete"] = new Func<string, string, NetworkStream, int>(_server.HandleDeleteTrading);
         }
 
         // handles the requestet route of the user
@@ -88,6 +93,7 @@ namespace TCPserverClasses
         {
 
             if (_authent.AuthenticateRouteUsersControll(url, methode, Auth, deserialBody, stream, routes) == 0) { return; }
+            if (_authent.AuthenticateRouteTradingDelete(url, methode, Auth, deserialBody, stream, routes) == 0) { return; }
 
             int i = _authent.AuthenticateUnautherized(url, methode, Auth, routes);
             switch (i)

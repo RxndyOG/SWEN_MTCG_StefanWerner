@@ -531,6 +531,7 @@
         "dependencies": {
           "CardsClasses": "1.0.0",
           "Npgsql": "8.0.5",
+          "TradingClasses": "1.0.0",
           "UserClasses": "1.0.0"
         },
         "compile": {
@@ -559,8 +560,10 @@
         "dependencies": {
           "AuthenticationClasses": "1.0.0",
           "BattleClasses": "1.0.0",
+          "CardsClasses": "1.0.0",
           "DatabaseClasses": "1.0.0",
           "Newtonsoft.Json": "13.0.3",
+          "TradingClasses": "1.0.0",
           "UserClasses": "1.0.0",
           "packageClasses": "1.0.0"
         },
@@ -569,6 +572,16 @@
         },
         "runtime": {
           "bin/placeholder/TCPserverClasses.dll": {}
+        }
+      },
+      "TradingClasses/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/TradingClasses.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TradingClasses.dll": {}
         }
       },
       "UserClasses/1.0.0": {
@@ -1411,6 +1424,11 @@
       "type": "project",
       "path": "../TCPserverClasses/TCPserverClasses.csproj",
       "msbuildProject": "../TCPserverClasses/TCPserverClasses.csproj"
+    },
+    "TradingClasses/1.0.0": {
+      "type": "project",
+      "path": "../TradingClasses/TradingClasses.csproj",
+      "msbuildProject": "../TradingClasses/TradingClasses.csproj"
     },
     "UserClasses/1.0.0": {
       "type": "project",

@@ -10,6 +10,7 @@
         "dependencies": {
           "CardsClasses": "1.0.0",
           "Npgsql": "8.0.5",
+          "TradingClasses": "1.0.0",
           "UserClasses": "1.0.0"
         },
         "runtime": {
@@ -109,6 +110,14 @@
           }
         }
       },
+      "TradingClasses/1.0.0": {
+        "runtime": {
+          "TradingClasses.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "UserClasses/1.0.0": {
         "dependencies": {
           "NSubstitute": "5.3.0",
@@ -177,6 +186,11 @@
       "sha512": ""
     },
     "packageClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TradingClasses/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

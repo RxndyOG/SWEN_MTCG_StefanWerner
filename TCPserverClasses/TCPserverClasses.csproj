@@ -13,8 +13,10 @@
   <ItemGroup>
     <ProjectReference Include="..\AuthenticationClasses\AuthenticationClasses.csproj" />
     <ProjectReference Include="..\BattleClasses\BattleClasses.csproj" />
+    <ProjectReference Include="..\Cards\CardsClasses.csproj" />
     <ProjectReference Include="..\DatabaseClasses\DatabaseClasses.csproj" />
     <ProjectReference Include="..\packageClasses\packageClasses.csproj" />
+    <ProjectReference Include="..\TradingClasses\TradingClasses.csproj" />
     <ProjectReference Include="..\UserClasses\UserClasses.csproj" />
   </ItemGroup>
 

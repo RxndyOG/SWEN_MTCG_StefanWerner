@@ -68,7 +68,16 @@ namespace TCPserverClasses
                 else
                 {
                     // parsed beginnt mit {
-                    deserialBody = new List<Dictionary<string, object>> { JsonConvert.DeserializeObject<Dictionary<string, object>>(body) };
+                    if (body.TrimStart().StartsWith("{"))
+                    {
+                        deserialBody = new List<Dictionary<string, object>> { JsonConvert.DeserializeObject<Dictionary<string, object>>(body) };
+                    }
+                    else if (body.StartsWith("\"") && body.EndsWith("\""))
+                    {
+                        // parsed beginnt mit \"
+                        string simpleString = JsonConvert.DeserializeObject<string>(body);
+                        deserialBody = new List<Dictionary<string, object>>{ new Dictionary<string, object> { { "ID", simpleString } }};
+                    }
                 }
             }
 

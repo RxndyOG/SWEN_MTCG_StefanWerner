@@ -5,6 +5,7 @@ using UserClasses;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Net;
+using System.Collections.Generic;
 
 
 namespace AuthenticationClasses
@@ -43,7 +44,7 @@ namespace AuthenticationClasses
                 return (userExists, 0);
 
             }
-            return (null,-1);
+            return (null, -1);
         }
 
         public int AuthenticateRouteUsersControll(string url, string methode, string Auth, List<Dictionary<string, object>> deserialBody, NetworkStream stream, Dictionary<string, Dictionary<string, Delegate>> routes)
@@ -62,6 +63,30 @@ namespace AuthenticationClasses
                     searchedRoute.Invoke(deserialBody, Auth, stream);
                     return 0;
                 }
+            }
+            return 1;
+        }
+
+        public int AuthenticateRouteTradingDelete(string url, string methode, string Auth, List<Dictionary<string, object>> deserialBody, NetworkStream stream, Dictionary<string, Dictionary<string, Delegate>> routes)
+        {
+            if (url.Contains("/tradings/"))
+            {
+                string id = url.Trim().Replace("/tradings/", "").Trim();
+
+                if (methode == "DELETE")
+                {
+                    var searchedRouteShort = routes[methode]["/tradings/delete"] as Func<string, string, NetworkStream, int>;
+                    searchedRouteShort.Invoke(Auth, id, stream);
+                    return 0;
+                }
+
+                if (methode == "POST")
+                {
+                    var searchedRouteShort = routes[methode]["/tradings/trade"] as Func<List<Dictionary<string, object>>, string, string, NetworkStream, int>;
+                    searchedRouteShort.Invoke(deserialBody, Auth, id, stream);
+                    return 0;
+                }
+
             }
             return 1;
         }
@@ -115,7 +140,7 @@ namespace AuthenticationClasses
                 Delegate routeDelegate = routes[methode][url];
                 int parameterCount = GetDelegateParameterCount(routeDelegate);
                 if (parameterCount == 0)
-                {                                                                                
+                {
                     var searchedRouteShort = routes[methode][url] as Func<int>;
                     searchedRouteShort.Invoke();
                     return 0;
@@ -142,14 +167,14 @@ namespace AuthenticationClasses
         public int AuthenticateRoutes(string url, string methode, string Auth, List<Dictionary<string, object>> args, NetworkStream stream, Dictionary<string, Dictionary<string, Delegate>> routes)
         {
 
-            int i = AuthenticateRoutesNonAuthNonArgs(url ,methode, Auth, args, stream, routes);
+            int i = AuthenticateRoutesNonAuthNonArgs(url, methode, Auth, args, stream, routes);
 
-            if(i == -2 || i == 0) { return i; }  
+            if (i == -2 || i == 0) { return i; }
 
             i = AuthenticateRoutesAuthNoArgs(url, methode, Auth, args, stream, routes);
 
-            if(i == 0) { return i; }
-            
+            if (i == 0) { return i; }
+
             return -1;
         }
     }

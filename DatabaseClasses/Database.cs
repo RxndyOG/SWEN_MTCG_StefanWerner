@@ -3,6 +3,8 @@ using Npgsql;
 using System.Security;
 using System.Xml.Linq;
 using UserClasses;
+using TradingClasses;
+using System.Net.Sockets;
 
 namespace DatabaseClasses
 {
@@ -92,6 +94,60 @@ namespace DatabaseClasses
                 return false;
 
             }
+        }
+
+        public bool testIfTradingAlreadyExists(string id)
+        {
+            OpenConnection();
+            string query = "SELECT COUNT(*) FROM trading WHERE cardid = @cardid";
+
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("cardid", id);
+                var count = (long)cmd.ExecuteScalar();
+
+                if (count > 0)
+                {
+
+                    CloseConnection();
+                    return true;
+                }
+                CloseConnection();
+                return false;
+
+            }
+        }
+
+        public bool testForIDWithGivenUsername(string username, string ID)
+        {
+            OpenConnection();
+            string query = "SELECT card_id FROM cards WHERE \"user\" = @user";
+        
+
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("user", username);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        string testedID = string.Empty;
+                        testedID = !reader.IsDBNull(0) ? reader.GetString(0) : string.Empty;
+                     
+
+                        if (testedID == ID)
+                        {
+                            CloseConnection();
+                            return true;
+                        }
+                    }
+                }
+
+            }
+            CloseConnection();
+            return false;
         }
 
         // gets all the cards from deck from user
@@ -375,6 +431,119 @@ namespace DatabaseClasses
 
                 }
             }
+            CloseConnection();
+        }
+
+        public List<Trading> GetTradingDeals()
+        {
+            List<Trading> tradingDeals = new List<Trading>();
+
+            OpenConnection();
+
+            string query = "SELECT id, \"username\", cardid, type, damage FROM trading;";
+
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        Trading card = new Trading();
+                        card.SetGetTradingId = !reader.IsDBNull(0) ? reader.GetString(0) : string.Empty; ;
+                        card.SetGetUsername = !reader.IsDBNull(1) ? reader.GetString(1) : string.Empty;
+                        card.SetGetCardId = !reader.IsDBNull(2) ? reader.GetString(2) : string.Empty;
+                        card.SetGetCardType = !reader.IsDBNull(3) ? reader.GetInt32(3) : 0;
+                        card.SetGetDamage = !reader.IsDBNull(4) ? (float)Convert.ToDecimal(reader["damage"]) : 0;
+
+                        tradingDeals.Add(card);
+                    }
+                }
+            }
+
+            CloseConnection();
+            return tradingDeals;
+        } 
+
+        public void DeleteTradingDeal(string username, string id)
+        {
+            OpenConnection();
+
+            string query = "DELETE FROM trading WHERE id = @id AND \"username\" = @username";
+
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@username", username);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+   
+            }
+
+            CloseConnection();
+            return;
+        }
+
+        public void InsertTradedCard(Cards card, string newUser)
+        {
+            OpenConnection();
+
+            string query = "INSERT INTO cards (card_id, \"user\", card_name, damage, family, cardtype, element) values (@card_id, @username, @card_name, @damage, @family, @cardtype, @element)";
+
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("card_id", card.SetGetID);
+                cmd.Parameters.AddWithValue("username", newUser);
+                cmd.Parameters.AddWithValue("card_name", card.SetGetName);
+              
+                cmd.Parameters.AddWithValue("damage", card.SetGetDamage);
+                cmd.Parameters.AddWithValue("family", card.SetGetFamily);
+                cmd.Parameters.AddWithValue("cardtype", card.SetGetCardType);
+                cmd.Parameters.AddWithValue("element", card.SetGetElement);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+            }
+
+            CloseConnection();
+        }
+
+        public void DeleteTradedCard(Cards card, string olduser)
+        {
+            OpenConnection();
+
+            string query = "DELETE FROM cards WHERE card_id = @card_id AND \"user\" = @username";
+
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("card_id", card.SetGetID);
+                cmd.Parameters.AddWithValue("username", olduser);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+
+            CloseConnection();
+            return;
+        }
+
+        public void InsertTradingDeal(Trading trading)
+        {
+            OpenConnection();
+
+            string query = "Insert INTO trading (id, \"username\", cardid, type, damage) values (@id, @username, @cardid, @type, @damage)";
+
+            using (var cmd = new NpgsqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("id", trading.SetGetTradingId);
+                cmd.Parameters.AddWithValue("cardid", trading.SetGetCardId);
+                cmd.Parameters.AddWithValue("username", trading.SetGetUsername);
+                cmd.Parameters.AddWithValue("damage", trading.SetGetDamage);
+                cmd.Parameters.AddWithValue("type", trading.SetGetCardType);
+                cmd.Parameters.AddWithValue("damage", trading.SetGetDamage);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+
             CloseConnection();
         }
 

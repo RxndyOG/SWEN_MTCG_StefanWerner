@@ -135,6 +135,7 @@
         "dependencies": {
           "CardsClasses": "1.0.0",
           "Npgsql": "8.0.5",
+          "TradingClasses": "1.0.0",
           "UserClasses": "1.0.0"
         },
         "runtime": {
@@ -159,13 +160,23 @@
         "dependencies": {
           "AuthenticationClasses": "1.0.0",
           "BattleClasses": "1.0.0",
+          "CardsClasses": "1.0.0",
           "DatabaseClasses": "1.0.0",
           "Newtonsoft.Json": "13.0.3",
+          "TradingClasses": "1.0.0",
           "UserClasses": "1.0.0",
           "packageClasses": "1.0.0"
         },
         "runtime": {
           "TCPserverClasses.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "TradingClasses/1.0.0": {
+        "runtime": {
+          "TradingClasses.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -266,6 +277,11 @@
       "sha512": ""
     },
     "TCPserverClasses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TradingClasses/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

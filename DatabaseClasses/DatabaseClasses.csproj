@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cards\CardsClasses.csproj" />
+    <ProjectReference Include="..\TradingClasses\TradingClasses.csproj" />
     <ProjectReference Include="..\UserClasses\UserClasses.csproj" />
   </ItemGroup>
 

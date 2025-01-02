@@ -38,3 +38,5 @@ F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\DatabaseClasses.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\DatabaseClasses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\TradingClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\SWEN.MTCG\bin\Debug\net8.0\TradingClasses.pdb

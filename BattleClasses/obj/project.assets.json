@@ -127,6 +127,7 @@
         "dependencies": {
           "CardsClasses": "1.0.0",
           "Npgsql": "8.0.5",
+          "TradingClasses": "1.0.0",
           "UserClasses": "1.0.0"
         },
         "compile": {
@@ -147,6 +148,16 @@
         },
         "runtime": {
           "bin/placeholder/packageClasses.dll": {}
+        }
+      },
+      "TradingClasses/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/TradingClasses.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TradingClasses.dll": {}
         }
       },
       "UserClasses/1.0.0": {
@@ -381,6 +392,11 @@
       "type": "project",
       "path": "../packageClasses/packageClasses.csproj",
       "msbuildProject": "../packageClasses/packageClasses.csproj"
+    },
+    "TradingClasses/1.0.0": {
+      "type": "project",
+      "path": "../TradingClasses/TradingClasses.csproj",
+      "msbuildProject": "../TradingClasses/TradingClasses.csproj"
     },
     "UserClasses/1.0.0": {
       "type": "project",

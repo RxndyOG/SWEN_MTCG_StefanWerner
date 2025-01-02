@@ -1,0 +1,12 @@
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\bin\Debug\net8.0\TradingClasses.deps.json
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\bin\Debug\net8.0\TradingClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\bin\Debug\net8.0\TradingClasses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\TradingClasses.GeneratedMSBuildEditorConfig.editorconfig
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\TradingClasses.AssemblyInfoInputs.cache
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\TradingClasses.AssemblyInfo.cs
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\TradingClasses.csproj.CoreCompileInputs.cache
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\TradingClasses.sourcelink.json
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\TradingClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\refint\TradingClasses.dll
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\TradingClasses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\TradingClasses\obj\Debug\net8.0\ref\TradingClasses.dll
