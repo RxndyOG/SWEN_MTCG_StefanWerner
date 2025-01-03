@@ -1,12 +1,13 @@
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\bin\Debug\net8.0\CardsClasses.deps.json
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\bin\Debug\net8.0\CardsClasses.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\bin\Debug\net8.0\CardsClasses.pdb
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.csproj.AssemblyReference.cache
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.GeneratedMSBuildEditorConfig.editorconfig
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.AssemblyInfoInputs.cache
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.AssemblyInfo.cs
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.csproj.CoreCompileInputs.cache
+F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.sourcelink.json
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\refint\CardsClasses.dll
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.pdb
 F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\ref\CardsClasses.dll
-F:\FHTechnikum\Semester 3\SWEN\MonsterCardGameOOP\SWEN.MTCG\Cards\obj\Debug\net8.0\CardsClasses.sourcelink.json

@@ -91,6 +91,9 @@
         }
       },
       "CardsClasses/1.0.0": {
+        "dependencies": {
+          "Npgsql": "8.0.5"
+        },
         "runtime": {
           "CardsClasses.dll": {
             "assemblyVersion": "1.0.0",
@@ -114,7 +117,8 @@
       },
       "packageClasses/1.0.0": {
         "dependencies": {
-          "CardsClasses": "1.0.0"
+          "CardsClasses": "1.0.0",
+          "Npgsql": "8.0.5"
         },
         "runtime": {
           "packageClasses.dll": {
@@ -124,6 +128,9 @@
         }
       },
       "TradingClasses/1.0.0": {
+        "dependencies": {
+          "Npgsql": "8.0.5"
+        },
         "runtime": {
           "TradingClasses.dll": {
             "assemblyVersion": "1.0.0",
@@ -134,6 +141,7 @@
       "UserClasses/1.0.0": {
         "dependencies": {
           "NSubstitute": "5.3.0",
+          "Npgsql": "8.0.5",
           "packageClasses": "1.0.0"
         },
         "runtime": {

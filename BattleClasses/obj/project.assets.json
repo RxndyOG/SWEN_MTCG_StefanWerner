@@ -114,6 +114,9 @@
       "CardsClasses/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Npgsql": "8.0.5"
+        },
         "compile": {
           "bin/placeholder/CardsClasses.dll": {}
         },
@@ -141,7 +144,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "CardsClasses": "1.0.0"
+          "CardsClasses": "1.0.0",
+          "Npgsql": "8.0.5"
         },
         "compile": {
           "bin/placeholder/packageClasses.dll": {}
@@ -153,6 +157,9 @@
       "TradingClasses/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Npgsql": "8.0.5"
+        },
         "compile": {
           "bin/placeholder/TradingClasses.dll": {}
         },
@@ -165,6 +172,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "NSubstitute": "5.3.0",
+          "Npgsql": "8.0.5",
           "packageClasses": "1.0.0"
         },
         "compile": {
